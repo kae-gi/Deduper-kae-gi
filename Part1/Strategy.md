@@ -101,7 +101,7 @@ def stposCheck(strand, pos, cigar) ->:
         -> stposCheck(1, 76743835, '71M3S')
         -> 76743835 + 71 + 3 - 1 = 76743908
     """
-  return stpos
+    return stpos
 ```
 
 
