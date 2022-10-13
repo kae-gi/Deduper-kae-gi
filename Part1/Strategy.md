@@ -9,7 +9,7 @@ To find a PCR duplicate there are a few key tells:
     - same chromosome
     - same (start) position 
     - same strandedness
-  - Soft clipping
+  - Soft clipping (based on unclipped position)
   - Same Unique Molecular Index (UMI)
 
 This tool will be designed for single-end data with 96 known UMIs, a list of which is in the repo under the ```STL96.txt``` file.
@@ -21,19 +21,28 @@ Within the SAM format, there are some fields that are important due to their cor
 - CIGAR (col 6) -> soft clipping
 - QNAME (col 1) -> UMI
 
-
 ## Examples
 
 ## Pseudocode
+```
 initialize dict for counting dupes {(chrom, stpos, str, umi): count}
-open files (SAM, STL96.txt)
+open files (input SAM, output SAM, STL96.txt)
+  
 
-
+close files
+```
 ## High level functions
-
-def softclip
-
-def umi
-
+```
+def alignmentCheck() ->:
+  """ Checks the input SAM """
+```
+```
+def softclipCheck() ->:
+  """ """
+```
+```
+def umiCheck() ->:
+  """ """
+```
 
 
