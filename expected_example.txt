@@ -5,4 +5,4 @@
 5) To deduped SAM
 6) To deduped SAM
 7) To deduped SAM
-8) To UMI error SAM
+8) To UMI error SAM (UMI does not exist in our known UMIs)
