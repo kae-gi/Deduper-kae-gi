@@ -1,0 +1,8 @@
+1) To deduped SAM
+2) To dupe SAM (adjusting for CIGAR makes it a dupe)
+3) To deduped SAM
+4) To deduped SAM
+5) To deduped SAM
+6) To deduped SAM
+7) To deduped SAM
+8) To UMI error SAM
