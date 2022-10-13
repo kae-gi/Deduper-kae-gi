@@ -75,7 +75,7 @@ def strandednessCheck(int: FLAG) -> int:
     return 1 or 0
 ```
 ```
-def stposCheck(int:strand, int:pos, str:cigar) ->:
+def stposCheck(int:strand, int:pos, str:cigar) -> int:
     """ 
     Given the strandedness, position, and CIGAR string as input, returns the starting position.
     If strand is 0 (fwd strand), 
