@@ -27,29 +27,65 @@ possibly sort the input SAM file first based on alignment position elements?
 output SAM maybe 3 files?: a "deduped" SAM, a dupe SAM, and UMI error SAM
 
 open files (input SAM, output SAMs, STL96.txt)
-    create set of all UMI from STL96.txt
+    umiset = getUMISet('STL96.txt')
     initialize empty dict for counting dupes {(chrom, stpos, strand, umi): count}
     from input SAM, lines not including ^@:
         for each line:
             strip \n and split (on \t?)
             umi = line[0], then split based on ':' and take [-1]
+            mapped = mappedCheck(line[1])
             strand = strandednessCheck(line[1])
             chrom = line[2]
             pos = line[3]
             cigar = line[5]
             stpos = stposCheck(strand, pos, cigar)
-            check if umi not in umiset:
-                add line to UMI error SAM
-            else:
-                check if (chrom, stpos, strand, umi) not in dupe dict
-                    add line to deduped SAM
-                    add {(chrom, stpos, strand, umi):0} to dict for counting dupes
+            if mapped:
+                check if umi not in umiset:
+                    add line to UMI error SAM
                 else:
-                    add line to dupe SAM
-                    {(chrom, stpos, strand, umi):+1}
+                    check if (chrom, stpos, strand, umi) not in dupe dict
+                        add line to deduped SAM
+                        add {(chrom, stpos, strand, umi):0} to dict for counting dupes
+                    else:
+                        add line to dupe SAM
+                        {(chrom, stpos, strand, umi):+1}
+            else:
+                discard unmapped somewhere?
 close files
 ```
 ## High level functions
+```
+def getUMISet(str: filename) -> set:
+    """
+    Given an input file with known UMIs, forms and returns a set from the 
+    contents of the file.
+    """
+    return set
+```
+```
+def mappedCheck(int: FLAG) -> int:
+    """ 
+    Given the SAM bitwise FLAG column input, checks to see if strand is mapped or not.
+    4 = 4, mapped -> 1
+    0 = 4, unmapped -> 0
+    
+    EX 1:
+        NS500451:154:HWKTMBGXX:1:11101:24260:1121:CTGTTCAC	0	2	76814284	36	71M	*	0	0	\
+        TCCACCACAATCTTACCATCCTTCCTCCAGACCACATCGCGTTCTTTGTTCAACTCACAGCTCAAGTACAA	\
+        6AEEEEEEAEEAEEEEAAEEEEEEEEEAEEAEEAAEE<EEEEEEEEEAEEEEEEEAAEEAAAEAEEAEAE/	\
+        MD:Z:71	NH:i:1	HI:i:1	NM:i:0	SM:i:36	XQ:i:40	X2:i:0	XO:Z:UU
+        -> mappedCheck(0)
+        -> 0
+    EX 2:
+        NS500451:154:HWKTMBGXX:1:11101:25533:1187:GTTCACCT	4	2	76743835	36	71M	*	0	0	\
+        CTTGGTAACTTTCAGAGAATTAGTCACAACTTCTGAAGCAACCACAGTCCATGCAAGTCGACTGGTTTCTC	\
+        6AEEEEEEEEEEEEEEEEEEEEEEEAEEEEEEEEEEEEEEEEAEEEEEEE<EEEEEEEEEEEEEEEEEEEE	\
+        MD:Z:71	NH:i:1	HI:i:1	NM:i:0	SM:i:36	XQ:i:40	X2:i:0	XO:Z:UU
+        -> mappedCheck(4)
+        -> 1
+    """
+    return 1 or 0
+```
 ```
 def strandednessCheck(int: FLAG) -> int:
     """ 
