@@ -114,6 +114,7 @@ def strandednessCheck(int: FLAG) -> int:
 def stposCheck(int:strand, int:pos, str:cigar) -> int:
     """ 
     Given the strandedness, position, and CIGAR string as input, returns the starting position.
+    (not 100% sure on this part...)
     If strand is 0 (fwd strand), 
         stpos = pos (no S in CIGAR, M)
         stpos = pos - x(S in CIGAR, M)
