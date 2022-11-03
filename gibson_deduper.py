@@ -38,7 +38,6 @@ def recordParser(record: str) -> tuple:
     stpos = stposCheck(strand, pos, cigar)
     return chrom, stpos, strand, umi
 
-
 def strandednessCheck(flag:int) -> bool:
     """
     Given an input of the SAM bitwise FLAG field, returns
