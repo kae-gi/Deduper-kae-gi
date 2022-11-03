@@ -1,0 +1,16 @@
+(Based on the big file: /projects/bgmp/shared/deduper/C1_SE_uniqAlign.sam)
+Running interactive node on Talapas:
+-> srun --account=bgmp --partition=bgmp --nodes=1 --time=2:00:00 --cpus-per-task=20 --pty bash
+-> conda activate bgmp_py310
+
+For sorting given SAM:
+  -> samtools view -S -b sort C1_SE_uniqAlign.sam > C1_SE_uniqAlign.bam 
+  -> samtools sort C1_SE_uniqAlign.bam -o C1_SE_uniqAlign.sorted.bam
+  -> samtools samtools index Chrom1.wh.sorted.bam
+  -> samtools view -h -o Chrom1.wh.sorted.sam Chrom1.wh.sorted.bam
+
+Running the Python script:
+-> /usr/bin/time -v ./gibson_deduper.py -f ./Chrom1.wh.sorted.sam -o ./Chrom1.wh.sorted.out.sam -u STL96.txt 
+
+Getting the counts of each chromosome:
+-> cat C1_SE_uniqAlign.sorted.out.sam | cut -f 3 | tail -n +65 | uniq -c
