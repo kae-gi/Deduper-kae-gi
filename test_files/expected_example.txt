@@ -1,0 +1,10 @@
+1) To deduped SAM (testing standard)
+2) To dupe SAM (complete dupe)
+3) To dupe SAM (adjusting for CIGAR makes it a dupe)
+4) Unmapped -> to some other file, discarded?
+5) To deduped SAM (testing rev strand)
+6) To deduped SAM (testing another rev strand)
+7) To deduped SAM (checking if CIGAR parsed correctly)
+8) To deduped SAM (checking if CIGAR parsed correctly)
+9) To deduped SAM (checking if CIGAR parsed correctly)
+10) To UMI error SAM (UMI does not exist in our known UMIs)
